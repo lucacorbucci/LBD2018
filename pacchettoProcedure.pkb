@@ -1,5 +1,9 @@
 create or replace package body ProcedureLucaC as
 
+
+-------------------------------------------------------------
+-------------------     LUCA C     --------------------------
+-------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 /*
@@ -64,12 +68,12 @@ BEGIN
               gui.apriRigaTabella();
 
               gui.creaCellaTabella('' || to_char(i.nome) || ' ' || to_char(i.cognome)  ||  '', eventJS => 'onclick', scriptJS => '
-                  var url = '''|| GuiConst.root ||'getinfoMedico?'';
+                  var url = '''|| GuiConst.root || COSTANTIGRUPPO1.packAle ||'getinfoMedico?'';
                   url = url + ''MED='' + ' || i.id_medico ||' + ''&'';
                   url = url + ''id_sessione='' + ' || id_sessione ||' ;
                   url = encodeURI(url);
                   console.log(url);
-                  startRequest(url);
+                  startRequest(url, ''Dettaglio Medico'', 1);
               ');
               gui.chiudiRigaTabella();
               end if;
@@ -86,12 +90,12 @@ BEGIN
               gui.apriRigaTabella();
 
               gui.creaCellaTabella('' || to_char(i.nome) || ' ' || to_char(i.cognome)  ||  '', eventJS => 'onclick', scriptJS => '
-                  var url = '''|| GuiConst.root ||'getinfoMedico?'';
+                  var url = '''|| GuiConst.root || COSTANTIGRUPPO1.packAle ||'getinfoMedico?'';
                   url = url + ''MED='' + ' || i.id_medico ||' + ''&'';
                   url = url + ''id_sessione='' + ' || id_sessione ||' ;
                   url = encodeURI(url);
                   console.log(url);
-                  startRequest(url);
+                  startRequest(url, ''Dettaglio Medico'', 1);
               ');
               gui.chiudiRigaTabella();
               end if;
@@ -109,12 +113,12 @@ BEGIN
               gui.apriRigaTabella();
 
               gui.creaCellaTabella('' || to_char(i.nome) || ' ' || to_char(i.cognome)  ||  '', eventJS => 'onclick', scriptJS => '
-                  var url = '''|| GuiConst.root ||'getinfoMedico?'';
+                  var url = '''|| GuiConst.root || COSTANTIGRUPPO1.packAle ||'getinfoMedico?'';
                   url = url + ''MED='' + ' || i.id_medico ||' + ''&'';
                   url = url + ''id_sessione='' + ' || id_sessione ||' ;
                   url = encodeURI(url);
                   console.log(url);
-                  startRequest(url);
+                  startRequest(url, ''Dettaglio Medico'', 1);
               ');
               gui.chiudiRigaTabella();
               end if;
@@ -201,12 +205,12 @@ begin
     htp.print('<b>Centro Sanitario: </b>');
 
     htp.print('<a href=''#'' onclick= ''
-            var v = "'|| GuiConst.root ||'"
+            var v = "'|| GuiConst.root || COSTANTIGRUPPO1.packOlti ||'"
             var url =  v + "'|| 'DETTAGLI_CENTRO_INS?' || '";
             url = url + "'|| 'id_sessione=' || '" + "'|| id_sessione || '" ;
             url = url + "'|| '&idcentro=' || '" + ' || idCentro ||' ;
             console.log(url);
-            startRequest(url);
+            startRequest(url, ''Dettaglio Centro Sanitario'', 1);
             ''
     > '|| nomeCentro ||' </a>');
 
@@ -217,12 +221,12 @@ begin
     gui.aggiungiLineaVuota();
         htp.print('<b>Responsabile: </b>');
         htp.print('<a href=''#'' onclick= ''
-                var v = "'|| GuiConst.root ||'"
+                var v = "'|| GuiConst.root || COSTANTIGRUPPO1.packAle ||'"
                 var url =  v + "'|| 'getinfoMedico?' || '";
                 url = url + "'|| 'MED=' || '" + "'|| idMedico || '" ;
                 url = url + "'|| '&id_sessione=' || '" + ' || id_sessione ||' ;
                 console.log(url);
-                startRequest(url);
+                startRequest(url, ''Dettaglio Medico Responsabile'', 1);
                 ''
         > '|| nomeMed || ' ' ||cognomeMedico ||' </a>');
 
@@ -237,24 +241,24 @@ begin
         */
 
         gui.aggiungiBottone(mValue=>'Visualizza Medici',eventJS=>'onclick',scriptJS=>'{
-                var url = '''|| GuiConst.root ||'ProcedureLucac.visualizzamediciambulatorio?'';
+                var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'visualizzamediciambulatorio?'';
                 url = url + ''select_centro='' + ' || idCentro ||' + ''&'';
                 url = url + ''select_ambulatorio='' + ' || idAmb ||' + ''&'';
                 url = url + ''id_sessione='' + ' || id_sessione ||';
                 url = encodeURI(url);
                 console.log(url);
 
-                startRequest(url);
+                startRequest(url, ''Dettaglio Medici Ambulatorio'', 1);
 
         }');
         gui.aggiungiBottone(mValue=>'Visualizza Specializzazioni',eventJS=>'onclick',scriptJS=>'{
-                var url = '''|| GuiConst.root ||'aggiungispecamb?'';
+                var url = '''|| GuiConst.root || COSTANTIGRUPPO1.packLucaP ||'aggiungispecamb?'';
 
                 url = url + ''idAmb='' + ' || idAmb ||' + ''&'';
                 url = url + ''id_sessione='' + ' || id_sessione ||';
                 url = encodeURI(url);
                 console.log(url);
-                startRequest(url);
+                startRequest(url, ''Dettaglio Specializzazioni ambulatorio'', 1);
 
         }');
 
@@ -277,14 +281,15 @@ begin
       gui.aggiungiBottone(mValue=>'Modifica',eventJS=>'onclick',scriptJS=>'{
 
           md = 0;
-          var url = '''|| GuiConst.root ||'ProcedureLucac.CONFERMAMODIFICAAMB?'';
+          var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'CONFERMAMODIFICAAMB?'';
           url = url + ''select_centro='' + ' || idCentro ||' + ''&'';
           url = url + ''select_ambulatorio='' + ' || idAmb ||' + ''&'';
           url = url + ''statoAmbulatorio='' + ' || statoAmb ||' + ''&'';
           url = url + ''id_sessione='' + ' || id_sessione ||';
           url = encodeURI(url);
           console.log(url)
-          startRequest(url)
+          original = 0;
+          startRequest(url, ''Modifica dettagli ambulatorio'', 1);
 
       }');
 
@@ -293,19 +298,19 @@ begin
         --- Pulsante per chiudere un ambulatorio
         gui.aggiungiBottone(mValue=>'Chiudi Ambulatorio',eventJS=>'onclick',scriptJS=>'{
 
-                  var url = '''|| GuiConst.root ||'ProcedureLucac.confermaeliminazione?'';
+                  var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'confermaeliminazione?'';
                   url = url + ''select_centro='' + ' || idCentro ||' + ''&'';
                   url = url + ''select_ambulatorio='' + ' || idAmb ||' + ''&'';
                   url = url + ''id_sessione='' + ' || id_sessione ||';
                   url = encodeURI(url);
 
-                  var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
+                  var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
 
 
                   xhttp=new XMLHttpRequest();
                   xhttp.onreadystatechange = function() {
 
-                  if (xhttp.readyState == 4 || status == 200) {
+                  if (xhttp.readyState == 4 && xhttp.status == 200) {
                       a.innerHTML = '''';
                       a.innerHTML = this.responseText;
 
@@ -399,42 +404,6 @@ rights number default 1;
 
 begin
 
-------------------------- FUNZIONI JAVASCRIPT --------------------------------------------
-gui.AggiungiJavascript('
-
-      var HTMLPagina = [];
-
-
-      function startRequest(url){
-          var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
-          if(HTMLPagina[0] != a.innerHTML){
-            HTMLPagina.push(a.innerHTML);
-          }
-
-          console.log(HTMLPagina.length);
-
-          xhttp=new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-
-          if (xhttp.readyState == 4 || status == 200) {
-              a.innerHTML = '''';
-              a.innerHTML = this.responseText;
-              var b = document.createElement("button");
-              b.className = ''bottone'';
-              b.setAttribute(''onclick'',"a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body''); a.innerHTML = HTMLPagina.pop()");
-
-              b.innerHTML = ''INDIETRO'';
-
-              a.appendChild(b);
-              dialog_'|| COSTANTIGRUPPO1.popup ||'.openDialog();
-          } }
-          xhttp.open(''GET'', url, true);
-          xhttp.send();
-          return false;
-      }
-
-      ');
-------------------------------------------------------------------------------
 
 ------------------------- DIRITTI --------------------------------------------
       SELECT BIN_TO_NUM(0,1,1,0,0,0,1,1) INTO rights FROM DUAL;
@@ -444,9 +413,6 @@ GUI.APRIPAGINA('Elenco Ambulatori');
 if(loginlogout.checkRights(rights, id_sessione) > 0) then
 
 
-
-  GUI.APRIFINESTRAPOPUP('Informazioni', COSTANTIGRUPPO1.popup);
-  gui.chiudifinestrapopup;
 
 
   PAGINEINCOMUNE.creaNavBar(id_sessione);
@@ -534,27 +500,16 @@ if(loginlogout.checkRights(rights, id_sessione) > 0) then
 
                 gui.creaCellaTabella('<br> Centro Sanitario ' || to_char(i.nomeCentro) || '<br> Ambulatorio ' || to_char(i.nome)  || '<br><br>' , eventJS => 'onClick', scriptJS  => '
 
-                xhttp=new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
-                if (xhttp.readyState == 4 || status == 200) {
-                    a.innerHTML = '''';
-                    a.innerHTML = this.responseText;
-                    dialog_'|| COSTANTIGRUPPO1.popup ||'.openDialog();
-                } }
 
-                var url = '''|| GuiConst.root ||'ProcedureLucac.viewDettagliAmbulatorio?idAmb='';
+
+                var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'viewDettagliAmbulatorio?idAmb='';
                 url = url + ''' || i.id_amb || '''
                 url = url + ''&idCentro='' + ''' || i.centro_sanitario || ''';
                 url = url + ''&statoAmbulatorio='' + ''' || i.stato || ''' + ''&'';
                 url = url + ''id_sessione='' + '|| id_sessione ||';
                 console.log(url);
 
-                url = encodeURI(url);
-                console.log(url);
-                xhttp.open(''GET'', url, true);
-                xhttp.send();
-                return false;
+                startRequest(url, ''Dettagli'', 1)
                 ');
 
 
@@ -576,15 +531,15 @@ if(loginlogout.checkRights(rights, id_sessione) > 0) then
             md = 0;
             xhttp=new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-            var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
-            if (xhttp.readyState == 4 || status == 200) {
+            var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
                 a.innerHTML = '''';
                 a.innerHTML = this.responseText;
-                dialog_'|| COSTANTIGRUPPO1.popup ||'.openDialog();
+                dialog_'|| GUICONST.popup ||'.openDialog();
             } }
 
 
-            var url = '''|| GuiConst.root ||'ProcedureLucac.insertAmbulatorio?'';
+            var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'insertAmbulatorio?'';
             url = url + ''id_sessione='' + ' || id_sessione ||';
 
             url = encodeURI(url);
@@ -633,14 +588,14 @@ if(loginlogout.checkRights(rights, id_sessione) > 0) then
 
                 xhttp=new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
-                var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
-                if (xhttp.readyState == 4 || status == 200) {
+                var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
                     a.innerHTML = '''';
                     a.innerHTML = this.responseText;
-                    dialog_'|| COSTANTIGRUPPO1.popup ||'.openDialog();
+                    dialog_'|| GUICONST.popup ||'.openDialog();
                 } }
 
-                var url = '''|| GuiConst.root ||'ProcedureLucac.viewDettagliAmbulatorio?idAmb='';
+                var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'viewDettagliAmbulatorio?idAmb='';
                 url = url + ''' || i.id_amb || '''
                 url = url + ''&idCentro='' + ''' || i.centro_sanitario || ''';
                 url = url + ''&statoAmbulatorio='' + ''' || i.stato || ''' + ''&'';
@@ -706,14 +661,14 @@ if(loginlogout.checkRights(rights, id_sessione) > 0) then
 
                     xhttp=new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
-                    var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
-                    if (xhttp.readyState == 4 || status == 200) {
+                    var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
                         a.innerHTML = '''';
                         a.innerHTML = this.responseText;
-                        dialog_'|| COSTANTIGRUPPO1.popup ||'.openDialog();
+                        dialog_'|| GUICONST.popup ||'.openDialog();
                     } }
 
-                    var url = '''|| GuiConst.root ||'ProcedureLucac.viewDettagliAmbulatorio?idAmb='';
+                    var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'viewDettagliAmbulatorio?idAmb='';
                     url = url + ''' || i.id_amb || '''
                     url = url + ''&idCentro='' + ''' || i.centro_sanitario || ''';
                     url = url + ''&statoAmbulatorio='' + ''' || i.stato || ''' + ''&'';
@@ -961,8 +916,7 @@ begin
   SELECT BIN_TO_NUM(0,0,0,0,0,0,1,1) INTO rights FROM DUAL;
 
 
-  GUI.APRIFINESTRAPOPUP('Inserimento di un ambulatorio', COSTANTIGRUPPO1.popup);
-  GUI.CHIUDIFINESTRAPOPUP;
+
 
   GUI.AGGIUNGIERROREFORM('Ricontrolla i campi in rosso','errorInsert');
 
@@ -979,11 +933,11 @@ begin
 
         xhttp=new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
-        var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
-        if (xhttp.readyState == 4 || status == 200) {
+        var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
             a.innerHTML = '''';
             a.innerHTML = this.responseText;
-            dialog_'|| COSTANTIGRUPPO1.popup ||'.openDialog();
+            dialog_'|| GUICONST.popup ||'.openDialog();
         } }
 
         var x = document.getElementsByName(''nome'')[0];
@@ -991,7 +945,7 @@ begin
         var z = document.getElementsByName(''maxstanze'')[0];
         var a = document.getElementsByName(''select_centro'')[0];
         var b = document.getElementsByName(''select_responsabile'')[0];
-        var url = '''|| GuiConst.root ||'ProcedureLucac.addInAmbulatorio?'';
+        var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'addInAmbulatorio?'';
         url = url + ''nome='' + x.value + ''&'';
         url = url + ''indirizzo='' + y.value + ''&'';
         url = url + ''maxstanze='' + z.value + ''&'';
@@ -1102,13 +1056,13 @@ begin
              idCentro = sel_centro.value;
 
              sel_responsabile = document.getElementsByName(''select_responsabile'')[0];
-             var url = '''|| GuiConst.root ||'ProcedureLucac.searchAmbulatorio?'';
+             var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'searchAmbulatorio?'';
              url = url + ''idCentro='' +  idCentro;
              console.log(url);
              xhttp=new XMLHttpRequest();
              xhttp.onreadystatechange = function() {
 
-             if (xhttp.readyState == 4 || status == 200) {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
                  sel_responsabile.innerHTML = '''';
                  sel_responsabile.innerHTML = this.responseText;
 
@@ -1229,7 +1183,7 @@ begin
         gui.aggiungiLineaVuota;
         gui.aggiungiBottone(mValue=>'ok',eventJS=>'onclick',scriptJS=>'
         {
-        dialog_'|| COSTANTIGRUPPO1.popup ||'.closeDialog();
+        dialog_'|| GUICONST.popup ||'.closeDialog();
         }');
     else
         insert into ambulatorio(ID_AMB, NOME, INDIRIZZO, MAXSTANZE, CENTRO_SANITARIO, RESPONSABILE)
@@ -1240,7 +1194,7 @@ begin
         gui.aggiungiBottone(mValue=>'ok',eventJS=>'onclick',scriptJS=>'
         {
         location.reload();
-        dialog_'|| COSTANTIGRUPPO1.popup ||'.closeDialog();
+        dialog_'|| GUICONST.popup ||'.closeDialog();
         }');
     end if;
 
@@ -1252,7 +1206,7 @@ exception
         gui.aggiungiLineaVuota;
         gui.aggiungiBottone(mValue=>'ok',eventJS=>'onclick',scriptJS=>'
         {
-        dialog_'|| COSTANTIGRUPPO1.popup ||'.closeDialog();
+        dialog_'|| GUICONST.popup ||'.closeDialog();
         }');
 
 end addInAmbulatorio;
@@ -1424,7 +1378,7 @@ BEGIN
                   formErrore.addError(''vuoto'',''Selezionare un responsabile'');
                 }
                 else{
-                  var url = '''|| GuiConst.root ||'ProcedureLucac.confermariapertura?'';
+                  var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'confermariapertura?'';
                   url = url + ''select_centro='' + ' || select_centro ||' + ''&'';
                   url = url + ''select_ambulatorio='' + ' || select_ambulatorio ||' + ''&'';
                   url = url + ''select_Responsabile='' + f.value + ''&'';
@@ -1432,13 +1386,13 @@ BEGIN
                   url = encodeURI(url);
                   console.log(url)
 
-                  var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
+                  var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
 
 
                   xhttp=new XMLHttpRequest();
                   xhttp.onreadystatechange = function() {
 
-                  if (xhttp.readyState == 4 || status == 200) {
+                  if (xhttp.readyState == 4 && xhttp.status == 200) {
                       a.innerHTML = '''';
                       a.innerHTML = this.responseText;
 
@@ -1452,9 +1406,15 @@ BEGIN
             ');
         else
 
+
+
         gui.aggiungiBottone(mValue=>'Ok',eventJS=>'onclick',scriptJS=>'
             {
-
+            if(original == 0){
+              var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
+              temp = a.innerHTML;
+              original = 1;
+            }
             f = document.getElementsByName(''select_Responsabile'')[0];
             stanze = document.getElementsByName(''maxstanze'')[0];
 
@@ -1487,7 +1447,7 @@ BEGIN
             }
             // Caso in cui va tutto bene e ho compilato o tutti e due i campi o almeno uno.
             else{
-                var url = '''|| GuiConst.root ||'ProcedureLucac.CONFERMAMODIFICAAMB?'';
+                var url = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'CONFERMAMODIFICAAMB?'';
                 url = url + ''select_centro='' + ' || select_centro ||' + ''&'';
                 url = url + ''select_ambulatorio='' + ' || select_ambulatorio ||' + ''&'';
                 if(stanze.value!=''''){
@@ -1500,16 +1460,32 @@ BEGIN
                 url = encodeURI(url);
                 console.log(url)
 
-                var a = document.getElementById(''dialog_'|| COSTANTIGRUPPO1.popup ||'_body'');
+                var a = document.getElementById(''dialog_'|| GUICONST.popup ||'_body'');
 
                 xhttp=new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
 
-                if (xhttp.readyState == 4 || status == 200) {
-                    temp = a.innerHTML;
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    //temp = a.innerHTML;
                     a.innerHTML = '''';
                     a.innerHTML = ''<b>'' + this.responseText + ''</b>'';
                     a.innerHTML += temp;
+
+                    if('' || newmaxStanze || '' != ''null'' || '' || select_Responsabile || '' != ''null'' ){
+                       var w = document.getElementsByClassName(''bottone'')[1];
+
+                       w.onclick = function(){
+                       HTMLPagina.pop();
+                       var ul = '''|| GuiConst.root || COSTANTIGRUPPO1.pack ||'viewDettagliAmbulatorio?idAmb='';
+                       ul = ul + ''' || select_ambulatorio || ''';
+                       ul = ul + ''&idCentro='' + ''' || select_centro || ''';
+                       ul = ul + ''&statoAmbulatorio='' + ''' || statoAmbulatorio || '''  + ''&'';
+                       ul = ul + ''id_sessione='' + '|| id_sessione ||';
+                       console.log(ul);
+                       startRequest(ul, ''Dettagli'', 0)
+                       }
+                    }
+
 
                 } }
                 xhttp.open(''GET'', url, true);
@@ -1599,7 +1575,8 @@ PROCEDURE studioEpidemiologico(
             GUI.APRIRIGATABELLA();
             GUI.CREACELLATABELLA('Centro Sanitario: ');
             GUI.APRICELLATABELLA();
-            GUI.APRISELECTFORM(mName=>'idCentro', eventJS=>'onchange', scriptJS=>'document.getElementById(''idCerca'').disabled = false;');
+            GUI.APRISELECTFORM(mName=>'Centro Sanitario', attributi=> 'id = idCentro');
+            GUI.aggiungiOptionSelectForm(mLabel=>' ');
             FOR centro IN (SELECT * FROM CENTRO_SANITARIO)
             LOOP
                 GUI.aggiungiOptionSelectForm(mValue=>centro.ID_CENTRO,mLabel=>centro.NOME);
@@ -1610,23 +1587,26 @@ PROCEDURE studioEpidemiologico(
             GUI.APRIRIGATABELLA();
             GUI.CREACELLATABELLA('Settimana del: ');
             GUI.APRICELLATABELLA();
-            htp.print('<input type="date" id="inizioSett" name="inizioSett" class="textInput datePicker" min="2015-01-12" step="7">');
+            htp.print('<input type="date" id="inizioSett" name="Settimana Del" class="textInput datePicker" min="2015-01-12" step="7">');
             GUI.CHIUDICELLATABELLA();
             GUI.CHIUDIRIGATABELLA();
             GUI.APRIRIGATABELLA();
             htp.print('<td colspan=2>');
             GUI.AGGIUNGIBOTTONE(mValue=>'Cerca',eventJS=>'onclick',scriptJS=>'{
+              if (checkForm(document.getElementsByTagName(''form'')[0],errorBoxerrorRic)) {
                     xhttp=new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
                         var a = document.getElementById(''divReport'');
-                        if (xhttp.readyState == 4 || status == 200) {
+                        if (xhttp.readyState == 4 && xhttp.status == 200) {
                             a.innerHTML = '''';
-                            //a.innerHTML = this.responseText;
-                            if(this.responseText != ''<h1>Report Patologie</h1><table>''){
+
+                            var htmlObject = $(this.responseText);
+
+                            if(htmlObject[1].childNodes.length != 0){
                                 var nomi = []
                                 var valori = []
 
-                                var htmlObject = $(this.responseText);
+                                console.log(htmlObject)
                                 var nodeL = htmlObject[1].children[0].childNodes;
                                 for (i=0;i<nodeL.length;i++){
                                     nomi.push(nodeL[i].children[0].textContent)
@@ -1639,8 +1619,8 @@ PROCEDURE studioEpidemiologico(
 
                                 var cnv = document.createElement(''canvas'');
                                 cnv.id = ''doughnut-chart_Patologie''
-                                cnv.width = ''800'';
-                                cnv.height = ''450''
+                                cnv.width = ''400'';
+                                cnv.height = ''200''
                                 father.appendChild(cnv);
 
 
@@ -1652,7 +1632,7 @@ PROCEDURE studioEpidemiologico(
                                       datasets: [
                                         {
                                           label: ''Population (millions)'',
-                                          backgroundColor: [''#3e95cd'', ''#8e5ea2'',''#3cba9f'',''#e8c3b9'',''#c45850''],
+                                          backgroundColor: [''#3e95cd'', ''#8e5ea2'',''#3cba9f'',''#e8c3b9'',''#c45850'',''#808000'', ''#000080'', ''#ff8c00'', ''#228b22''],
                                           data: valori
                                         }
                                       ]
@@ -1669,14 +1649,15 @@ PROCEDURE studioEpidemiologico(
                                   a.innerHTML = ''<br><br><b>Non ci sono report per questo periodo<b>'';
                               }
                         }
+
                     }
-                    var centro = document.getElementsByName(''idCentro'')[0].value;
+                    var centro = document.getElementById(''idCentro'').value;
                     var selectVal = document.getElementById(''inizioSett'').value;
-                    var url = '''||GUICONST.root||'ProcedureLucaC.reportStudiEpPatologie?idCentro='' + centro + ''&inizioSett='' + selectVal + ''&idSessione='||id_sessione||''';
+                    var url = '''||GUICONST.root|| COSTANTIGRUPPO1.packLucaC ||'reportStudiEpPatologie?idCentro='' + centro + ''&inizioSett='' + selectVal + ''&id_sessione='||id_sessione||''';
                     xhttp.open(''GET'', url, true);
                     xhttp.send();
                     return false;
-                    }', idValue=>'idCerca', attributi=>'disabled=true');
+                    }}', idValue=>'idCerca');
             htp.print('</td>');
             GUI.CHIUDIRIGATABELLA();
             GUI.CHIUDITABELLA();
@@ -1692,7 +1673,8 @@ PROCEDURE studioEpidemiologico(
             GUI.APRIRIGATABELLA();
             GUI.CREACELLATABELLA('Centro Sanitario: ');
             GUI.APRICELLATABELLA();
-            GUI.APRISELECTFORM(mName=>'idCentroAnalisi', eventJS=>'onchange', scriptJS=>'document.getElementById(''idCercaAnalisi'').disabled = false;');
+            GUI.APRISELECTFORM(mName=>'Centro Sanitario', eventJS=>'onchange', attributi=> 'id = idCentroAnalisi' );
+            GUI.aggiungiOptionSelectForm(mLabel=>' ');
             FOR centro IN (SELECT * FROM CENTRO_SANITARIO)
             LOOP
                 GUI.aggiungiOptionSelectForm(mValue=>centro.ID_CENTRO,mLabel=>centro.NOME);
@@ -1703,24 +1685,28 @@ PROCEDURE studioEpidemiologico(
             GUI.APRIRIGATABELLA();
             GUI.CREACELLATABELLA('Settimana del: ');
             GUI.APRICELLATABELLA();
-            htp.print('<input type="date" id="inizioSettAnalisi" name="inizioSett" class="textInput datePicker" min="2015-01-12" step="7">');
+            htp.print('<input type="date" id="inizioSettAnalisi" name="Settimana del" class="textInput datePicker" min="2015-01-12" step="7">');
             GUI.CHIUDICELLATABELLA();
             GUI.CHIUDIRIGATABELLA();
             GUI.APRIRIGATABELLA();
             htp.print('<td colspan=2>');
             GUI.AGGIUNGIBOTTONE(mValue=>'Cerca',eventJS=>'onclick',scriptJS=>'{
 
-
+                if (checkForm(document.getElementsByTagName(''form'')[1],errorBoxerrorRic)) {
                     xxhttp=new XMLHttpRequest();
                     xxhttp.onreadystatechange = function() {
                         var a = document.getElementById(''divReportAnalisi'');
-                        if (xxhttp.readyState == 4 || status == 200) {
+                        if (xxhttp.readyState == 4 && xxhttp.status == 200) {
                             a.innerHTML = '''';
                             var nomi = []
                             var valori = []
-                            if(this.responseText != ''<h1>Tipi Analisi</h1><table>''){
 
-                                var htmlObject = $(this.responseText);
+                            var htmlObject = $(this.responseText);
+
+                            if(htmlObject[1].childNodes.length != 0){
+
+
+
                                 var nodeL = htmlObject[1].children[0].childNodes;
                                 for (i=0;i<nodeL.length;i++){
                                     nomi.push(nodeL[i].children[0].textContent)
@@ -1734,8 +1720,8 @@ PROCEDURE studioEpidemiologico(
 
                                 var cnv = document.createElement(''canvas'');
                                 cnv.id = ''doughnut-chart''
-                                cnv.width = ''800'';
-                                cnv.height = ''450''
+                                cnv.width = ''400'';
+                                cnv.height = ''200''
                                 father.appendChild(cnv);
 
 
@@ -1748,7 +1734,7 @@ PROCEDURE studioEpidemiologico(
                                       datasets: [
                                         {
                                           label: ''Population (millions)'',
-                                          backgroundColor: [''#3e95cd'', ''#8e5ea2'',''#3cba9f'',''#e8c3b9'',''#c45850''],
+                                          backgroundColor: [''#3e95cd'', ''#8e5ea2'',''#3cba9f'',''#e8c3b9'',''#c45850'',''#808000'', ''#000080'', ''#ff8c00'', ''#228b22''],
                                           data: valori
                                         }
                                       ]
@@ -1769,17 +1755,15 @@ PROCEDURE studioEpidemiologico(
                             }
 
 
-
-
                         }
                     }
-                    var centro = document.getElementsByName(''idCentroAnalisi'')[0].value;
+                    var centro = document.getElementById(''idCentroAnalisi'').value;
                     var selectVal = document.getElementById(''inizioSettAnalisi'').value;
-                    var url = '''||GUICONST.root||'ProcedureLucaC.reportStudiEpAnalisi?idCentro='' + centro + ''&inizioSett='' + selectVal + ''&idSessione='||id_sessione||''';
+                    var url = '''||GUICONST.root|| COSTANTIGRUPPO1.packLucaC ||'reportStudiEpAnalisi?idCentro='' + centro + ''&inizioSett='' + selectVal + ''&id_sessione='||id_sessione||''';
                     xxhttp.open(''GET'', url, true);
                     xxhttp.send();
                     return false;
-                    }', idValue=>'idCercaAnalisi', attributi=>'disabled=true');
+                    }}', idValue=>'idCercaAnalisi');
             htp.print('</td>');
             GUI.CHIUDIRIGATABELLA();
             GUI.CHIUDITABELLA();
@@ -1787,10 +1771,6 @@ PROCEDURE studioEpidemiologico(
             GUI.APRIDIV('id=divReportAnalisi');
 
             GUI.CHIUDIDIV();
-
-
-
-
 
             GUI.CHIUDIBODY();
         ELSE
@@ -1801,14 +1781,20 @@ PROCEDURE studioEpidemiologico(
 
         end if;
         GUI.CHIUDIPAGINA();
-END studioEpidemiologico;
 
+        exception
+          when others then
+            gui.aggiungiTestoForm('<b>Si è verificato un errore</b>');
+            gui.aggiungiLineaVuota();
+            gui.aggiungiTestoForm('''<iframe src="https://giphy.com/embed/mq5y2jHRCAqMo" width="480" height="480" frameBorder="0" class="giphy-embed" ></iframe>''');
+
+END studioEpidemiologico;
 
 
 PROCEDURE reportStudiEpPatologie(
         idCentro    IN CENTRO_SANITARIO.ID_CENTRO%TYPE,
         inizioSett  IN VARCHAR2,
-        idSessione  IN NUMBER DEFAULT NULL
+        id_sessione  IN NUMBER DEFAULT NULL
     )AS
     curCentro CENTRO_SANITARIO%ROWTYPE;
     visiteTotali    NUMBER;
@@ -1820,35 +1806,21 @@ PROCEDURE reportStudiEpPatologie(
     BEGIN
 
 
-            DECLARE Cursor pato is
-              SELECT diagnosi.id_pato, ambulatorio.centro_sanitario
-              FROM VISITA,TURNO_MEDICO,AMBULATORIO, DIAGNOSI
-              WHERE VISITA.TURNO=TURNO_MEDICO.ID_TURNO AND TURNO_MEDICO.AMB=AMBULATORIO.ID_AMB
-                AND TURNO_MEDICO.INIZIO >= TO_DATE(inizioSett,'YYYY-MM-DD')
-                AND TURNO_MEDICO.INIZIO <= (TO_DATE(inizioSett,'YYYY-MM-DD')+6)
-                AND DIAGNOSI.ID_VISITA = VISITA.ID_VISITA;
-
-            patCount NUMBER := 0;
-            var pato%rowtype;
-    BEGIN
-
-      open pato;
-          loop
-            fetch pato into var;
-            exit when pato%NOTFOUND;
-
-          end loop;
-
-
-
         gui.apriTabella('Report Patologie');
 
-        if(pato%ROWCOUNT != 0) then
+
             for i in (
 
-            select distinct patologia.nome, (select count(pato.id_pato) from pato where pato.id_pato = patologia.id_pato and pato.centro_sanitario = idCentro group by pato.id_pato) as conteggio
-            from patologia, pato
-            where pato.centro_sanitario = idCentro and pato.id_pato = patologia.id_pato
+                select patologia.nome as nome, count(diagnosi.id_pato) as conteggio
+                from patologia , diagnosi  , turno_medico, visita, ambulatorio
+                where diagnosi.id_pato = patologia.id_pato
+                AND diagnosi.id_visita = visita.id_visita
+                AND turno_medico.id_turno = visita.turno
+                AND turno_medico.inizio >= TO_DATE(inizioSett,'YYYY-MM-DD')
+                AND turno_medico.inizio <= (TO_DATE(inizioSett,'YYYY-MM-DD')+6) and
+                ambulatorio.id_amb = turno_medico.amb
+                and ambulatorio.centro_sanitario = idCentro
+                group by patologia.nome, diagnosi.id_pato
 
             )
             LOOP
@@ -1862,15 +1834,19 @@ PROCEDURE reportStudiEpPatologie(
               gui.chiudiCellaTabella;
               gui.chiudiRigaTabella();
             end loop;
-        end if;
 
-END;
+        exception
+          when others then
+            gui.aggiungiTestoForm('<b>Si è verificato un errore</b>');
+            gui.aggiungiLineaVuota();
+            gui.aggiungiTestoForm('''<iframe src="https://giphy.com/embed/mq5y2jHRCAqMo" width="480" height="480" frameBorder="0" class="giphy-embed" ></iframe>''');
+
 END reportStudiEpPatologie;
 
 PROCEDURE reportStudiEpAnalisi(
         idCentro    IN CENTRO_SANITARIO.ID_CENTRO%TYPE,
         inizioSett  IN VARCHAR2,
-        idSessione  IN NUMBER DEFAULT NULL
+        id_sessione  IN NUMBER DEFAULT NULL
     )AS
 
 
@@ -1880,9 +1856,8 @@ PROCEDURE reportStudiEpAnalisi(
         for i in (
 
           select tipo_analisi.nome as nome, count(tipo_analisi.id_tipoanalisi) as conteggio
-          from accertabili, analisi , tipo_analisi  , turno_tecnico, laboratorio
-          where analisi.id_analisi = accertabili.id_analisi and
-          tipo_analisi.id_tipoanalisi = analisi.tipoanalisi and
+          from analisi , tipo_analisi  , turno_tecnico, laboratorio
+          where tipo_analisi.id_tipoanalisi = analisi.tipoanalisi and
           turno_tecnico.id_turno = analisi.turno
           AND TURNO_tecnico.DATA_T >= TO_DATE(inizioSett,'YYYY-MM-DD')
           AND turno_tecnico.DATA_T <= (TO_DATE(inizioSett,'YYYY-MM-DD')+6) and
@@ -1904,6 +1879,11 @@ PROCEDURE reportStudiEpAnalisi(
           gui.chiudiRigaTabella();
         end loop;
 
+        exception
+          when others then
+            gui.aggiungiTestoForm('<b>Si è verificato un errore</b>');
+            gui.aggiungiLineaVuota();
+            gui.aggiungiTestoForm('''<iframe src="https://giphy.com/embed/mq5y2jHRCAqMo" width="480" height="480" frameBorder="0" class="giphy-embed" ></iframe>''');
 
 
 END reportStudiEpAnalisi;
