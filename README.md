@@ -2,7 +2,7 @@
 
 Questa repository contiene i files prodotti durante il corso di Laboratorio di Basi di dati.
 
-La cartella operazioni contiene il file .pks e il file .pkb relativi alle operazioni da me implementate ovvero:
+La cartella operazioni contiene il file .pks e il file .pkb relativi alle operazioni PLSQL da me implementate ovvero:
 
   - isualizzaListaAmbulatorio
   - visualizzaMediciAmbulatorio
